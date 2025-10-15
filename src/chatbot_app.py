@@ -14,6 +14,7 @@ from mistralai import Mistral  # ✅ Updated import for new SDK
 load_dotenv()
 
 MODEL = os.getenv("LLM_MODEL", "mistral-large-latest")
+print(MODEL)
 API_KEY = os.getenv("MISTRAL_API_KEY")
 
 if not API_KEY:
@@ -24,6 +25,8 @@ if not API_KEY:
 # _client = MistralClient(api_key=API_KEY)
 
 _client = Mistral(api_key=API_KEY)
+# creeate a OLLAMA CLIENT,AZURE OPENAI(NEEDS SUBSRIPTION), OPENAI(FREE KEY), HUGGING FACE, AMAZON BEDROCK
+# THEN LOAD THE OLLAMA MODEL WHICH IS SIMILAR TO MISTRAL LIST OF  LLM MODELS
 
 # def llm_chat(messages: List[Dict[str, str]], temperature: float = 0.2) -> str:
 #     """
@@ -43,7 +46,8 @@ def llm_chat(messages, temperature: float = 0.2) -> str:
         model=MODEL,
         messages=messages,
         temperature=temperature,
-    )
+    ) # from mistral documentation, this wikl. ary for different client alwasy
+    print(resp)
     # OLD: return resp.output_text
     return resp.choices[0].message.content if resp.choices else ""
 
@@ -59,6 +63,7 @@ SYSTEM_PROMPT = (
     "Answer ONLY using the numbers and facts provided in the 'Data' section. "
     "If data is insufficient, say what is missing. "
     "Be concise and include the final numeric answer clearly."
+    "show your grievance and crack a joke"
 )
 
 def ask_fpna_bot(question: str, data_markdown: str) -> str:
